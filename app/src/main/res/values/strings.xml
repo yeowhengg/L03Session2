@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Bill Please</string>
+    <string name = "amtview">Amount</string>
+    <string name = "txtamt">Enter the total amount</string>
+    <string name = "paxview">Num of Pax</string>
+    <string name = "txtpax">Enter total amount of pax</string>
+    <string name = "nosvstxt">SVS</string>
+    <string name = "gsttxt">GST</string>
+    <string name = "discview">Discount</string>
+    <string name = "discTxt">Enter discount (in %)</string>
+    <string name = "cashtxt">Cash</string>
+    <string name = "paynowtxt">PayNow</string>
+    <string name = "splittxt">SPLIT</string>
+    <string name = "resettxt">RESET</string>
+    <string name = "outputTotal"></string>
+    <string name = "outputSplit"></string>
+</resources>
