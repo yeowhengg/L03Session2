@@ -85,6 +85,20 @@ public class BillPlease extends AppCompatActivity {
             }
         });
 
+        resetBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                amtTxt.setText("");
+                paxTxt.setText("");
+                discTxt.setText("");
+                paymentGrp.clearCheck();
+                svsToggle.setChecked(false);
+                gstToggle.setChecked(false);
+                billView.setText("");
+                splitView.setText("");
+            }
+        });
+
     }
     public void refreshDisplay(){
         double totalAmt = Double.parseDouble(amtTxt.getText().toString());
