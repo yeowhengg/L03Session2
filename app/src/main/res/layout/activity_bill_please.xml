@@ -62,7 +62,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="@string/nosvstxt">
+            android:checked="false"
+            android:textOff="@string/nosvstxt"
+            android:textOn="@string/nosvstxt">
+
 
         </ToggleButton>
 
@@ -71,7 +74,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="@string/gsttxt">
+            android:checked="false"
+            android:textOn="@string/gsttxt"
+            android:textOff="@string/gsttxt">
 
         </ToggleButton>
     </LinearLayout>
@@ -119,6 +124,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mobileNo">
+
+        </TextView>
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter mobile number">
+
+        </com.google.android.material.textfield.TextInputEditText>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <Button
@@ -138,7 +165,6 @@
             android:layout_weight="0.5"
             android:layout_marginHorizontal="1.5dp">
         </Button>
-
     </LinearLayout>
 
     <LinearLayout

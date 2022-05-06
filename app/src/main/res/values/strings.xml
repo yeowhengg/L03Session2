@@ -14,4 +14,7 @@
     <string name = "resettxt">RESET</string>
     <string name = "outputTotal"></string>
     <string name = "outputSplit"></string>
+    <string name = "mobileNo">Mobile Number: </string>
+    <string name = "mobileNoHint">Enter your mobile number</string>
+    <string name = "gone">gone</string>
 </resources>
