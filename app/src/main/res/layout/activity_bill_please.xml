@@ -24,6 +24,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/amtTxtId"
+            android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/txtamt">
@@ -44,6 +45,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/paxTxtId"
+            android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/txtpax">
@@ -94,31 +96,34 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/discTxtId"
+            android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/discTxt">
         </com.google.android.material.textfield.TextInputEditText>
 
-<RadioGroup
-    android:id="@+id/paymentTypeId"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+        <RadioGroup
+            android:id="@+id/paymentTypeId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    <RadioButton
-        android:id="@+id/rbCash"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/cashtxt">
-    </RadioButton>
+            <RadioButton
+                android:id="@+id/rbCash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:focusedByDefault="true"
+                android:text="@string/cashtxt"></RadioButton>
 
-    <RadioButton
-        android:id="@+id/rbPayNow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/paynowtxt">
-    </RadioButton>
-</RadioGroup>
+            <RadioButton
+                android:id="@+id/rbPayNow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/paynowtxt">
+            </RadioButton>
+        </RadioGroup>
+
     </LinearLayout>
 
     <LinearLayout
@@ -136,6 +141,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/mobileNoTxt"
+            android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter mobile number">

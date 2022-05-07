@@ -3,9 +3,7 @@ package sg.edu.rp.c346.id20042741.l03session2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.util.LogPrinter;
-import android.util.Patterns;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,8 +11,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-
-import org.w3c.dom.Text;
 
 import java.util.regex.Pattern;
 
@@ -34,9 +30,7 @@ public class BillPlease extends AppCompatActivity {
     double gstCharge = 0;
     EditText paynowNum;
     int selectedId;
-
-
-
+    RadioButton cashRb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +48,12 @@ public class BillPlease extends AppCompatActivity {
         billView = findViewById(R.id.totalOutputId);
         splitView = findViewById(R.id.splitOutputId);
         paynowNum = findViewById(R.id.mobileNoTxt);
+        cashRb = findViewById(R.id.rbCash);
 
         svsToggle.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 svsCharge = svsToggle.isChecked() ? 0.07 : 0;
-                refreshDisplay();
             }
         });
 
@@ -67,7 +61,6 @@ public class BillPlease extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 gstCharge = gstToggle.isChecked() ? 0.1 : 0;
-                refreshDisplay();
             }
         });
 
@@ -81,42 +74,51 @@ public class BillPlease extends AppCompatActivity {
         resetBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                amtTxt.setText("");
-                paxTxt.setText("");
-                discTxt.setText("");
-                paymentGrp.clearCheck();
-                svsToggle.setChecked(false);
-                gstToggle.setChecked(false);
-                billView.setText("");
-                splitView.setText("");
+                finish();
+                startActivity(getIntent());
             }
         });
 
     }
-    public void refreshDisplay(){
-        double totalAmt = Double.parseDouble(amtTxt.getText().toString());
-        int totalPax = Integer.parseInt(paxTxt.getText().toString());
-        double totalDisc = discTxt.getText().toString().isEmpty() ? 0 : Double.parseDouble(discTxt.getText().toString())/100;
+    public void refreshDisplay() {
+        double totalAmt = amtTxt.getText().toString().isEmpty() ? 0 : Double.parseDouble(amtTxt.getText().toString());
+        int totalPax = paxTxt.getText().toString().isEmpty() ? 1 : Integer.parseInt(paxTxt.getText().toString());
+        double totalDisc = discTxt.getText().toString().isEmpty() ? 0 : Double.parseDouble(discTxt.getText().toString()) / 100;
+        String outputMsg = paynowNum.getText().toString().isEmpty() ? "in cash" : "via PayNow to" + paynowNum.getText().toString();
 
-        String regex = ("(8|9)[0-9]{7}");
-        Boolean mobileNoValidation = Pattern.matches(regex, paynowNum.getText().toString());
+        String mobileNoPattern = ("(8|9)[0-9]{7}");
+        String noPattern = ("^\\d*\\.?\\d*$");
+
+        Boolean mobileNoValidation = Pattern.matches(mobileNoPattern, paynowNum.getText().toString());
+        Boolean numValidation = Pattern.matches(noPattern, amtTxt.getText().toString());
+
         selectedId = paymentGrp.getCheckedRadioButtonId();
 
-        double paymentDue = totalAmt * (1-(svsCharge + gstCharge + totalDisc));
+        double paymentDue = totalAmt * (1 - (svsCharge + gstCharge + totalDisc));
         double split = paymentDue / totalPax;
 
-        if(selectedId < 0){
-            Log.println(Log.DEBUG,"debug","HELLO");
-            billView.setText(String.format("Total bill: %.2f", paymentDue));
-            splitView.setText(String.format("Each pays: $%.2f in cash",split));
+        if (totalAmt < 0 || !numValidation) {
+            billView.setText("Please enter a valid amount!");
+            billView.setTextColor(getResources().getColor(R.color.red));
+            splitView.setText("");
         }
-        else if((selectedId == R.id.rbPayNow) && mobileNoValidation){
-            billView.setText(String.format("Total bill: %.2f", paymentDue));
-            splitView.setText(String.format("Each pays: $%.2f via PayNow to %s",split, paynowNum.getText().toString()));
+
+        else if (amtTxt.getText().toString().isEmpty()) {
+            billView.setText("Please enter something!");
+            billView.setTextColor(getResources().getColor(R.color.red));
+            splitView.setText("");
         }
-        else{
+
+        else if (selectedId == R.id.rbPayNow && !mobileNoValidation) {
+            billView.setText("Please enter number in 8/9 format followed by 7 numbers");
+            billView.setTextColor(getResources().getColor(R.color.red));
+            splitView.setText("");
+        }
+
+        else {
+            billView.setTextColor(getResources().getColor(R.color.black));
             billView.setText(String.format("Total bill: %.2f", paymentDue));
-            splitView.setText(String.format("Each pays: $%.2f in cash",split));
+            splitView.setText(String.format("Each pays: $%.2f  %s", split, outputMsg));
         }
 
     }
